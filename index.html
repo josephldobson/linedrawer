@@ -9,19 +9,22 @@
     <link rel="preload" href="fonts/VCR_OSD_MONO.ttf" as="font" type="font/woff" crossorigin>
 </head>
 <body>
-    <canvas id="canvas1"></canvas>
-    <div id='preview'></div>
+    <div class="canvwrapper">
+        <canvas id="preview1"></canvas>
+        <canvas id="canvas1"></canvas>
+    </div>
+
 
     <div class="slidecontainer">
 
         <label class="custom-file-upload">
-            <input type="file" id='fileinput' value='File' data-maxwidth='500' data-maxheight='500'/>
+            <input type="file" id="imageInput" accept = "image/*">
             Upload Image
         </label>
 
         <p>Number of Nodes: <span id="number_of_nodes1"></span> </p>
         <input type="range" min="100" max="1000" value="500" class="slider" id="number_of_nodes">
-
+        <br>
         <button class = 'button' id = 'begin' onclick="getInputsAndStart()">Begin Artwork!</button>
     </div>
 

@@ -1,9 +1,18 @@
+// Create canvas for nodes and lines
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
-console.log(canvas);
+
 canvas.height = window.innerHeight
 canvas.width = window.innerWidth
 
+//Create canvas for image
+const preview = document.getElementById('preview1');
+const previewctx = preview.getContext('2d');
+
+preview.height = window.innerHeight
+preview.width = window.innerWidth
+
+// Slide variable
 var non = document.getElementById("number_of_nodes");
 var non_output = document.getElementById("number_of_nodes1");
 non_output.innerHTML = non.value;
@@ -13,6 +22,31 @@ non.oninput = function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     create_nodes(non.value,canvas.height*0.48)
 }
+
+let imgInput = document.getElementById('imageInput');
+imgInput.addEventListener('change', function(e) {
+    if(e.target.files) {
+        previewctx.clearRect(0,0,preview.width,preview.height)
+        let imageFile = e.target.files[0]; //here we get the image file
+        var reader = new FileReader();
+        reader.readAsDataURL(imageFile);
+        reader.onloadend = function (e) {
+            var myImage = new Image(); // Creates image object
+            myImage.src = e.target.result; // Assigns converted image to image object
+            myImage.onload = function(ev) {
+                let cw = preview.width;
+                let ch = preview.height;
+                previewctx.drawImage(myImage,1000,0); // Draws the image on canvas
+                previewctx.globalCompositeOperation='destination-in';
+                previewctx.beginPath();
+                previewctx.arc(cw/2,ch/2,ch/2-100,0,Math.PI*2);
+                previewctx.closePath();
+                previewctx.fill();
+                let imgData = myCanvas.toDataURL("image/jpeg",0.75); // Assigns image base64 string in jpeg format to a variable
+            }
+        }
+    }
+});
 
 function create_nodes(non, size){
     // Draw segments from theta = 0 to theta = 2PI

@@ -5,12 +5,16 @@ body {
     font-family: Pixel;
 }
 
-#canvas1 {
-    position: fixed;
+.canvwrapper {
+    position: relative;
     width: 100%;
     height: 100%;
+}
+
+.canvwrapper canvas {
+    position: absolute;
     top: 0;
-    left: 15%;
+    left: 0;
     z-index: -1;
 }
 
@@ -70,7 +74,6 @@ body {
     margin-top: 1%;
 }
 
-}
 #begin:hover {
     background-color: #000000;
     color: white;
