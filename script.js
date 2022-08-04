@@ -9,8 +9,8 @@ canvas.width = window.outerWidth
 const preview = document.getElementById('preview1');
 const previewctx = preview.getContext('2d');
 
-preview.height = outerHeight
-preview.width = outerWidth
+preview.height = window.outerHeight
+preview.width = window.outerWidth
 
 // Slide variable
 var non = document.getElementById("number_of_nodes");
