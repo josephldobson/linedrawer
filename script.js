@@ -2,15 +2,15 @@
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 
-canvas.height = window.outerHeight
-canvas.width = window.outerWidth
+canvas.height = window.innerHeight
+canvas.width = window.innerWidth
 
 //Create canvas for image
 const preview = document.getElementById('preview1');
 const previewctx = preview.getContext('2d');
 
-preview.height = window.outerHeight
-preview.width = window.outerWidth
+preview.height = window.innerHeight
+preview.width = window.innerWidth
 
 // Slide variable
 var non = document.getElementById("number_of_nodes");

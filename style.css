@@ -18,11 +18,6 @@ body {
     z-index: -1;
 }
 
-#preview1 {
-    background: red;
-
-}
-
 .slidecontainer {
     width: 20%; /* Width of the outside container */
     font-size: 1.5vw;
