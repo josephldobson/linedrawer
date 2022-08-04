@@ -36,10 +36,12 @@ imgInput.addEventListener('change', function(e) {
             myImage.onload = function(ev) {
                 let cw = preview.width;
                 let ch = preview.height;
-                previewctx.drawImage(myImage,1000,0); // Draws the image on canvas
+                centx = preview.width/2 - myImage.width/2;
+                centy = preview.height/2 - myImage.height/2;
+                previewctx.drawImage(myImage,centx,centy); // Draws the image on canvas
                 previewctx.globalCompositeOperation='destination-in';
                 previewctx.beginPath();
-                previewctx.arc(cw/2,ch/2,ch/2-100,0,Math.PI*2);
+                previewctx.arc(cw/2,ch/2,ch/2-50,0,Math.PI*2);
                 previewctx.closePath();
                 previewctx.fill();
                 let imgData = myCanvas.toDataURL("image/jpeg",0.75); // Assigns image base64 string in jpeg format to a variable
@@ -70,5 +72,14 @@ function getInputsAndStart(){
     create_nodes(non.value,canvas.height*0.48)
 }
 
+// This will log the width of the viewport
+console.log(window.innerWidth);
 
+// This will log the width of the frame viewport within a frameset
+console.log(self.innerWidth);
 
+// This will log the width of the viewport of the closest frameset
+console.log(parent.innerWidth);
+
+// This will log the width of the viewport of the outermost frameset
+console.log(top.innerWidth);
