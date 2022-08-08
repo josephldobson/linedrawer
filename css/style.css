@@ -18,6 +18,8 @@ body {
     left: 20%;
     margin: 0;
     z-index: -1;
+    height:1000px;
+    width:1000px;
 }
 
 .slidecontainer {

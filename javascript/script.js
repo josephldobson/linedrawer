@@ -1,4 +1,4 @@
-canvdim = 2000
+canvdim = 3000
 const artcanvas = document.getElementById('threadartcanvas1');
 const artctx = artcanvas.getContext('2d');
 
@@ -12,12 +12,14 @@ const nodesctx = nodescanvas.getContext('2d');
 nodescanvas.height = canvdim;
 nodescanvas.width = canvdim;
 
+
 //Create canvas for image
 const preview = document.getElementById('preview1');
 const previewctx = preview.getContext('2d');
 
 preview.height =canvdim;
 preview.width = canvdim;
+
 
 // Slide variable - NUMBER OF NODES
 var non = document.getElementById("number_of_nodes");
@@ -104,7 +106,7 @@ function changePixels(curr,next,nodes,immat) {
 
     while(true) {
         //Punishing function
-        immat[canvdim*y0+x0] = Math.floor(immat[canvdim*y0+x0]/2)
+        immat[canvdim*y0+x0] = Math.floor(immat[canvdim*y0+x0]/3)
 
         if ((x0 === x1) && (y0 === y1)) break;
         var e2 = 2*err;
@@ -184,7 +186,7 @@ function getInputsAndStart(){
     create_nodes(NON,preview.height*0.48);
     Nodes = generateArrayOfPoints(NON);
     before = 0
-    for(var start = 1; start < 3*preview.width; start++) {
+    for(var start = 1; start < Math.floor(2*preview.width); start++) {
         setTimeout(function () {
             var after = findBestNewPoint(Nodes, NON,before,bwmatrix);
             ax = Nodes[before][0];
