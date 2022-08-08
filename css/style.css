@@ -15,7 +15,7 @@ body {
 .canvwrapper canvas {
     position: absolute;
     top: 0;
-    left: 15%;
+    left: 30%;
     margin: 0;
     z-index: -1;
     width = 50vh;
