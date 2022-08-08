@@ -1,3 +1,21 @@
+
+//TODO Make mobile combatable
+//TODO Add 'detailed areas' drawing map to improve model
+
+
+var canvaswindowsize = Math.floor(Math.min(window.innerHeight,window.innerWidth)*0.95)
+
+document.getElementById('preview1').style.height = canvaswindowsize + 'px';
+document.getElementById('preview1').style.width = canvaswindowsize + 'px';
+document.getElementById('nodecanvas1').style.height = canvaswindowsize + 'px';
+document.getElementById('nodecanvas1').style.width = canvaswindowsize + 'px';
+document.getElementById('threadartcanvas1').style.height = canvaswindowsize + 'px';
+document.getElementById('threadartcanvas1').style.width = canvaswindowsize + 'px';
+
+
+
+
+
 canvdim = 3000
 const artcanvas = document.getElementById('threadartcanvas1');
 const artctx = artcanvas.getContext('2d');
@@ -32,7 +50,11 @@ non.oninput = function() {
     create_nodes(non.value,nodescanvas.height*0.48);
 }
 
-
+// Slide variable - DETAIL
+var detail = document.getElementById("detail_slider");
+var detail_output = document.getElementById("detail_slider1");
+detail_output.innerHTML = detail.value;
+detail.oninput = function() {detail_output.innerHTML = this.value;}
 
 // Preview the image before computation
 let imgInput = document.getElementById('imageInput');
@@ -91,6 +113,12 @@ function generateArrayOfPoints(NoN){
     return Nodes
 }
 
+//Creates array of random numbers
+function randomArray(accuracy,NON){
+    var newmat = Array.from(Array(Math.floor(accuracy*NON/100)).keys());
+    var newmat = newmat.map(x => Math.floor(Math.random()*NON));
+    return newmat
+}
 
 //Change pixels when line drawn
 function changePixels(curr,next,nodes,immat) {
@@ -119,12 +147,15 @@ function changePixels(curr,next,nodes,immat) {
 function findBestNewPoint(Nodes,NON,curr,immat){
     var best = -1;
     var bestval = 0;
-    for(var i = 0; i < NON; i++) {
-        if(curr !== i) {
-            var next = i;
+    var randnodes = randomArray(detail.value,NON);
+    var randlength = randnodes.length;
+    for (var i = 0; i < randlength; i++) {
+        var nod = randnodes[i]
+        if(curr !== nod) {
+            var next = nod;
             var val = evaluateSingleLine(curr,next,Nodes,immat);
             if(val>bestval){
-                best = i;
+                best = nod;
                 bestval = val
             }
         }
