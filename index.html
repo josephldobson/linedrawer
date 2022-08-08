@@ -5,31 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Line Drawer</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preload" href="fonts/VCR_OSD_MONO.ttf" as="font" type="font/woff" crossorigin>
 </head>
 <body>
     <div class="canvwrapper">
         <canvas id="preview1"></canvas>
-        <canvas id="canvas1"></canvas>
+        <canvas id="nodecanvas1"></canvas>
+        <canvas id="threadartcanvas1"></canvas>
     </div>
 
 
     <div class="slidecontainer">
 
+        <p>Number of Nodes: <span id="number_of_nodes1"></span> </p>
+        <input type="range" min="100" max="1000" value="600" class="slider" id="number_of_nodes">
+        <br>
         <label class="custom-file-upload">
             <input type="file" id="imageInput" accept = "image/*">
             Upload Image
         </label>
-
-        <p>Number of Nodes: <span id="number_of_nodes1"></span> </p>
-        <input type="range" min="100" max="1000" value="500" class="slider" id="number_of_nodes">
         <br>
-        <button class = 'button' id = 'begin' onclick="getInputsAndStart()">Begin Artwork!</button>
+        <button class = 'button' id = 'begin1' onclick="getInputsAndStart()">Begin Artwork!</button>
+
+
     </div>
 
-    <script src="image_uploader.js"></script>
-    <script src="script.js"></script>
+    <script src="javascript/image_uploader.js"></script>
+    <script src="javascript/script.js"></script>
 
 </body>
 </html>
