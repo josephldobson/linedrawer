@@ -2,9 +2,8 @@
 //TODO Make mobile combatable
 //TODO Add 'detailed areas' drawing map to improve model
 
-
+//Set canvas' css dimensions
 var canvaswindowsize = Math.floor(Math.min(window.innerHeight,window.innerWidth)*0.95)
-
 document.getElementById('preview1').style.height = canvaswindowsize + 'px';
 document.getElementById('preview1').style.width = canvaswindowsize + 'px';
 document.getElementById('nodecanvas1').style.height = canvaswindowsize + 'px';
@@ -12,11 +11,8 @@ document.getElementById('nodecanvas1').style.width = canvaswindowsize + 'px';
 document.getElementById('threadartcanvas1').style.height = canvaswindowsize + 'px';
 document.getElementById('threadartcanvas1').style.width = canvaswindowsize + 'px';
 
-
-
-
-
-canvdim = 3000
+//Set canvas' pixel dimensions
+canvdim = 2000
 const artcanvas = document.getElementById('threadartcanvas1');
 const artctx = artcanvas.getContext('2d');
 
@@ -55,6 +51,17 @@ var detail = document.getElementById("detail_slider");
 var detail_output = document.getElementById("detail_slider1");
 detail_output.innerHTML = detail.value;
 detail.oninput = function() {detail_output.innerHTML = this.value;}
+
+//Download button
+
+function download_image(){
+    var canvas = document.getElementById("threadartcanvas1");
+    image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    var link = document.createElement('a');
+    link.download = "my-image.png";
+    link.href = image;
+    link.click();
+}
 
 // Preview the image before computation
 let imgInput = document.getElementById('imageInput');
@@ -163,7 +170,6 @@ function findBestNewPoint(Nodes,NON,curr,immat){
     changePixels(curr,best,Nodes,immat)
     return best
 }
-
 
 //
 function evaluateSingleLine(curr, next, nodes, immat) {

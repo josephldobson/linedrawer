@@ -16,18 +16,20 @@
 
     <div class="slidecontainer">
         <p>Select an image to create artwork using a single continuous thread.</p>
-        <p>Number of Nodes: <span id="number_of_nodes1"></span> </p>
-        <input type="range" min="100" max="1000" value="600" class="slider" id="number_of_nodes">
+        Number of Nodes: <span id="number_of_nodes1"></span>
+        <input type="range" min="50" max="2000" value="1000" class="slider" id="number_of_nodes">
         <br>
-        <p>Detail: <span id="detail_slider1"></span> </p>
+        Detail: <span id="detail_slider1"></span>
         <input type="range" min="10" max="100" value="100" class="slider" id="detail_slider">
         <br>
         <label class="custom-file-upload">
             <input type="file" id="imageInput" accept = "image/*">
             Upload Image
         </label>
-        <br>
+        <button class = 'button' id = 'detail1'>Highlight detail</button>
         <button class = 'button' id = 'begin1' onclick="getInputsAndStart()">Begin Artwork!</button>
+        <button class = 'button' onclick="download_image()">Download</button>
+
 
 
     </div>
