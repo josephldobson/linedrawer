@@ -1,9 +1,10 @@
-
+//TODO Add stopping algorithm
+//TODO Add background colour changer
 //TODO Make mobile combatable
 //TODO Add 'detailed areas' drawing map to improve model
 
 //Set canvas' css dimensions
-var canvaswindowsize = Math.floor(Math.min(window.innerHeight,window.innerWidth)*0.95)
+var canvaswindowsize = Math.floor(Math.min(window.innerHeight,window.innerWidth))
 document.getElementById('preview1').style.height = canvaswindowsize + 'px';
 document.getElementById('preview1').style.width = canvaswindowsize + 'px';
 document.getElementById('nodecanvas1').style.height = canvaswindowsize + 'px';
@@ -12,7 +13,7 @@ document.getElementById('threadartcanvas1').style.height = canvaswindowsize + 'p
 document.getElementById('threadartcanvas1').style.width = canvaswindowsize + 'px';
 
 //Set canvas' pixel dimensions
-canvdim = 2000
+canvdim = 1800
 const artcanvas = document.getElementById('threadartcanvas1');
 const artctx = artcanvas.getContext('2d');
 
@@ -26,7 +27,6 @@ const nodesctx = nodescanvas.getContext('2d');
 nodescanvas.height = canvdim;
 nodescanvas.width = canvdim;
 
-
 //Create canvas for image
 const preview = document.getElementById('preview1');
 const previewctx = preview.getContext('2d');
@@ -34,6 +34,12 @@ const previewctx = preview.getContext('2d');
 preview.height =canvdim;
 preview.width = canvdim;
 
+//Create canvas for detail drawer
+const detailcanv = document.getElementById('detailcanv1');
+const detailcanvctx = preview.getContext('2d');
+
+detailcanv.height =canvdim;
+detailcanv.width = canvdim;
 
 // Slide variable - NUMBER OF NODES
 var non = document.getElementById("number_of_nodes");
@@ -52,8 +58,32 @@ var detail_output = document.getElementById("detail_slider1");
 detail_output.innerHTML = detail.value;
 detail.oninput = function() {detail_output.innerHTML = this.value;}
 
-//Download button
+//Canvas Highlighting detail
 
+//Start Stop button
+var mixBut = document.getElementById("begin1");
+
+mixBut.addEventListener("click", Start);
+
+function Start(){
+    mixBut.removeEventListener("click", Start);
+    mixBut.addEventListener("click", Pause);
+    mixBut.value = "Pause";
+    if (typeof window.gen !== 'undefined') {
+        window.inter = setInterval(function(){window.gen.next()},0)
+    } else {
+        getInputsAndStart();
+    }
+}
+
+function Pause(){
+    console.log("Stopped");
+    mixBut.removeEventListener("click", Pause);
+    mixBut.addEventListener("click", Start);
+    mixBut.value = "Start";
+    clearInterval(window.inter);
+}
+//Download button
 function download_image(){
     var canvas = document.getElementById("threadartcanvas1");
     image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
@@ -61,6 +91,14 @@ function download_image(){
     link.download = "my-image.png";
     link.href = image;
     link.click();
+}
+//Button to reset javascript code
+function refresh(){
+    if (typeof window.gen !== 'undefined') {
+        clearInterval(window.inter);
+        location.reload();
+        return false;
+    }
 }
 
 // Preview the image before computation
@@ -74,7 +112,8 @@ imgInput.addEventListener('change', function(e) {
         reader.onloadend = function (e) {
             var myImage = new Image(); // Creates image object
             myImage.src = e.target.result; // Assigns converted image to image object
-            myImage.onload = function(ev) {
+            myImage.onload = function() {
+                console.log('it did it')
 
                 let cw = preview.width;
                 let ch = preview.height;
@@ -210,8 +249,26 @@ function create_nodes(non, size){
         nodesctx.fill();
         nodesctx.stroke();
     }
-
 }
+
+//generator function for algorithm
+function* generateNewLine(Nodes,NON,before,bwmatrix){
+    for(var start = 1; start < Math.floor(20000); start++) {
+        var after = findBestNewPoint(Nodes, NON,before,bwmatrix);
+        ax = Nodes[before][0];
+        ay = Nodes[before][1];
+        bx = Nodes[after][0];
+        by = Nodes[after][1];
+        artctx.beginPath();
+        artctx.moveTo(ax, ay);
+        artctx.lineTo(bx, by);
+        artctx.stroke();
+        before = after
+        if (start%5 == 0){
+            yield;
+        }
+        }
+    }
 
 function getInputsAndStart(){
     var NON = parseInt(non.value, 10)
@@ -223,18 +280,7 @@ function getInputsAndStart(){
     create_nodes(NON,preview.height*0.48);
     Nodes = generateArrayOfPoints(NON);
     before = 0
-    for(var start = 1; start < Math.floor(2*preview.width); start++) {
-        setTimeout(function () {
-            var after = findBestNewPoint(Nodes, NON,before,bwmatrix);
-            ax = Nodes[before][0];
-            ay = Nodes[before][1];
-            bx = Nodes[after][0];
-            by = Nodes[after][1];
-            artctx.beginPath();
-            artctx.moveTo(ax, ay);
-            artctx.lineTo(bx, by);
-            artctx.stroke();
-            before = after
-        }, 0);
-    };
+
+    window.gen = generateNewLine(Nodes,NON,before,bwmatrix)
+    window.inter = setInterval(function(){window.gen.next()},0)
 }

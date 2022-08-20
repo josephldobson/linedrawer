@@ -7,28 +7,39 @@
     <link rel="preload" href="fonts/VCR_OSD_MONO.ttf" as="font" type="font/woff" crossorigin>
 </head>
 <body>
+    <h1>Joseph Dobson</h1>
     <div class="canvwrapper">
+
         <canvas id="preview1"></canvas>
         <canvas id="nodecanvas1"></canvas>
         <canvas id="threadartcanvas1"></canvas>
+        <canvas id="detailcanv1"></canvas>
     </div>
 
 
     <div class="slidecontainer">
-        <p>Select an image to create artwork using a single continuous thread.</p>
+        <h2>LINEDRAWER</h2>
         Number of Nodes: <span id="number_of_nodes1"></span>
         <input type="range" min="50" max="2000" value="1000" class="slider" id="number_of_nodes">
         <br>
-        Detail: <span id="detail_slider1"></span>
+        Detail (slower): <span id="detail_slider1"></span>
         <input type="range" min="10" max="100" value="100" class="slider" id="detail_slider">
         <br>
+        <!-- Compute Live
+        <label class="switch">
+            <input id = "livecheck" type="checkbox">
+            <span class="toggle"></span>
+        </label>
+        <br>
+        -->
         <label class="custom-file-upload">
             <input type="file" id="imageInput" accept = "image/*">
             Upload Image
         </label>
-        <button class = 'button' id = 'detail1'>Highlight detail</button>
-        <button class = 'button' id = 'begin1' onclick="getInputsAndStart()">Begin Artwork!</button>
+        <!-- <button class = 'button' id = 'detail1'>Highlight detail</button> -->
+        <input class = 'button' type="button" id="begin1" value="Start" />
         <button class = 'button' onclick="download_image()">Download</button>
+        <input class = 'button' type = 'button' value = "Reset" onClick = 'refresh()'/>
 
 
 
