@@ -1,4 +1,3 @@
-//TODO Add stopping algorithm
 //TODO Add background colour changer
 //TODO Make mobile combatable
 //TODO Add 'detailed areas' drawing map to improve model
@@ -13,7 +12,7 @@ document.getElementById('threadartcanvas1').style.height = canvaswindowsize + 'p
 document.getElementById('threadartcanvas1').style.width = canvaswindowsize + 'px';
 
 //Set canvas' pixel dimensions
-canvdim = 1800
+canvdim = 2000
 const artcanvas = document.getElementById('threadartcanvas1');
 const artctx = artcanvas.getContext('2d');
 

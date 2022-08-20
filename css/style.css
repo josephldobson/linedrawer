@@ -26,6 +26,14 @@ h2 {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+    color: #d25050;
+}
+a:hover {
+    color: #381515;
+}
+
 .canvwrapper {
     margin: 0;
     width: 100%;
