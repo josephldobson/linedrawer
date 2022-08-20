@@ -33,13 +33,6 @@ const previewctx = preview.getContext('2d');
 preview.height =canvdim;
 preview.width = canvdim;
 
-//Create canvas for detail drawer
-const detailcanv = document.getElementById('detailcanv1');
-const detailcanvctx = preview.getContext('2d');
-
-detailcanv.height =canvdim;
-detailcanv.width = canvdim;
-
 // Slide variable - NUMBER OF NODES
 var non = document.getElementById("number_of_nodes");
 var non_output = document.getElementById("number_of_nodes1");
