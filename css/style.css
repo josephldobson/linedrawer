@@ -68,6 +68,7 @@ a:hover {
     transition: opacity 0s;
     margin-top: 0%;
     margin-bottom: 3%;
+    margin-left:0px;
 }
 .slider:hover {
     opacity: 1;
